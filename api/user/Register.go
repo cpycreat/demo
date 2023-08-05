@@ -24,6 +24,16 @@ func Register(c *gin.Context) {
 	var req RegisterReq
 	c.BindJSON(&req)
 	fmt.Println("发送的消息为", req.Password, req.Username)
+	//判断用户名和密码是否过长
+	if len(req.Username) > 32 || len(req.Password) > 32 {
+		c.JSON(200, RegisterRes{
+			StatusCode: 1,
+			StatusMsg:  "注册失败,用户名或密码过长,最长32个字符",
+			Token:      "nil",
+			UserID:     -1,
+		})
+		return
+	}
 	res := DoRegister(&req)
 	c.JSON(200, res)
 }

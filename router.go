@@ -10,7 +10,7 @@ import (
 
 func initRouter(r *gin.Engine) {
 	apiRouter := r.Group("/douyin")
-	//base
+	//basegit push -u origin master
 	//	apiRouter.POST("/user/login", user.Login)
 	apiRouter.POST("/user/register", user.Register)
 }
