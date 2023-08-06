@@ -24,6 +24,7 @@ func Register(c *gin.Context) {
 	var req RegisterReq
 	c.BindJSON(&req)
 	fmt.Println("发送的消息为", req.Password, req.Username)
+
 	//判断用户名和密码是否过长
 	if len(req.Username) > 32 || len(req.Password) > 32 {
 		c.JSON(200, RegisterRes{
@@ -34,6 +35,8 @@ func Register(c *gin.Context) {
 		})
 		return
 	}
+
+	//进行注册
 	res := DoRegister(&req)
 	c.JSON(200, res)
 }

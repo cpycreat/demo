@@ -26,7 +26,31 @@ func InitDB() {
 	var err error
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		panic("failed to connect database, err:" + err.Error())
+		panic("无法连接数据库:" + err.Error())
 	}
+	//自动迁移
 
+	err = DB.AutoMigrate(&User{}, &Vedio{})
+	if err != nil {
+		panic("数据库迁移失败:" + err.Error())
+	}
+	fmt.Println("数据库初始化成功")
+	// tempuser := User{
+	// 	Username: "admin1",
+	// 	Password: "admin",
+	// 	UpVedio: []*Vedio{
+	// 		{
+	// 			VID:      1,
+	// 			VedioURL: "http://localhost:8080/static/video/1.mp4",
+	// 			CoverURL: "http://localhost:8080/static/video/1.jpg",
+	// 		},
+	// 		{
+	// 			VID:      2,
+	// 			VedioURL: "http://localhost:8080/static/video/2.mp4",
+	// 			CoverURL: "http://localhost:8080/static/video/2.jpg",
+	// 		},
+	// 	},
+	// }
+
+	// DB.Create(&tempuser)
 }
